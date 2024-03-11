@@ -1,0 +1,19 @@
+%h1 Short Postings
+
+= form_with(model: @post, url: posts_path, local: true) do |form|
+  - if @post.errors.any?
+    .alert.alert-danger
+      %ul
+        - @post.errors.full_messages.each do |message|
+          %li= message
+  .form-group
+    = form.text_area :content, class: 'form-control', placeholder: 'Enter your short post (max 140 characters)'
+  .flex-container
+    = form.submit 'Post', class: 'btn btn-primary mt-3'
+%hr
+%h2 All Posts
+- @posts.each do |post|
+  .card.mb-3
+    .card-body
+      %p= post.content
+      %p= post.created_at.strftime('%Y/%m/%d %H:%M')
